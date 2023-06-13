@@ -1,0 +1,58 @@
+ .menu{
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    height: 170vw;
+    background-color:  	#213246 ;
+ }
+ .menu_text{
+    color:white;
+    text-align: center;
+    margin-bottom: 10px;
+ 
+    
+ }
+ .menu_button{
+   border-style: solid;
+   border-color:#7fa142;
+   border-radius: 10px;
+   width: 100px;
+   height: 50px;
+   margin-right: 25px;
+   
+color:#7fa142;
+background-color: transparent;
+
+
+ }
+ .ani{
+   animation:animate 1s ease-in ;
+ }
+ .menu_button:hover{
+   background-color:#7fa142;
+   color: #213246
+ }
+ .selected{
+   border-style: solid;
+   border-color:#7fa142;
+   border-radius: 10px;
+   width: 100px;
+   height: 50px;
+   margin-right: 25px;
+   background-color:#7fa142;
+   color: #213246
+
+ }
+@keyframes animate{
+   from{
+      transform:  scale(0);
+   }
+   to{
+      transform:  scale(1);
+   }
+}
+.ring_style{
+   position: relative;
+   right: 400px;
+   top:400px
+}

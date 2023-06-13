@@ -1,0 +1,31 @@
+.nav{
+    margin: 0px;
+    padding: 0px;
+
+    background-color: 	#213246 
+}
+
+.hide
+{
+    display: none;
+}
+
+.logout{
+
+    position: relative;
+    left: 1200px;
+    top:30px;
+    color:#7fa142;
+    margin-left: 25px;
+
+}
+.logout:hover + .hide{
+    display: block;
+    color:#7fa142;
+    position: relative;
+    left: 1100px;
+    top:70px;
+ 
+    margin-left: 25px;
+
+}

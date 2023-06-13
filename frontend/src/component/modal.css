@@ -1,0 +1,139 @@
+.button_modal{
+
+    border-style: solid;
+    border-color:#7fa142;
+    border-radius: 10px;
+    width: 150px;
+    height: 50px;
+    
+ color:#7fa142;
+ background-color: transparent;
+ display: block;
+ margin-left: auto;
+ margin-right: auto;
+ margin-top: 10px;
+
+
+  
+}
+.button_modal:hover {
+
+
+
+ background-color:#7fa142;
+ color: #213246
+}
+.button_close{
+    border-style: solid;
+    border-color:red;
+    border-radius: 10px;
+    width: 130px;
+    height: 50px;
+    
+ color:red;
+ background-color: transparent;
+ position: relative;
+ top: 50px;
+ left: 30px;
+ margin-left: 60px;
+ margin-bottom: 20px;
+
+
+}
+.button_close2
+{
+    border-style: solid;
+    border-color:red;
+    border-radius: 10px;
+    width: 130px;
+    height: 50px;
+    
+ color:red;
+ background-color: transparent;
+ position: relative;
+ top: 20px;
+ left: 70px;
+ margin-left: 60px;
+ margin-bottom: 20px;
+
+
+}
+.button_close2:hover{
+    background-color:red;
+    color: #213246
+
+}
+
+.button_close:hover{
+    background-color:red;
+    color: #213246
+
+}
+.button_address
+{
+    border-style: solid;
+    border-color:#7fa142;
+    border-radius: 10px;
+    width: 130px;
+    height: 50px;
+    
+ color:#7fa142;
+ background-color: transparent;
+ position: relative;
+ top: 0px;
+ left: -80px;
+ margin-left: 60px;
+ margin-bottom: 20px;
+ position: relative;
+ left: 370px;
+ top:20px;
+
+}
+.button_address:hover{
+    background-color:#7fa142;
+    color: #213246
+
+}
+.button_cart1{
+    border-style: solid;
+    border-color:#7fa142;
+    border-radius: 10px;
+    width: 130px;
+    height: 50px;
+    
+ color:#7fa142;
+ background-color: transparent;
+ display: block;
+ margin-left: auto;
+ margin-right: auto;
+ margin-top: 10px;
+
+
+
+}
+.button_cart1:hover{
+    background-color:#7fa142;
+    color: #213246
+
+}
+.button_close_cart{
+    border-style: solid;
+    border-color:red;
+    border-radius: 10px;
+    width: 130px;
+    height: 50px;
+    
+ color:red;
+ background-color: transparent;
+ position: relative;
+ top: 40px;
+ left: 40px;
+ margin-left: 60px;
+ margin-bottom: 20px;
+
+}
+.button_close_cart:hover{
+
+    background-color:red;
+    color: #213246
+}

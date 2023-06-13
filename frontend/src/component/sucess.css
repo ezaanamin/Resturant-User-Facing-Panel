@@ -1,0 +1,21 @@
+.button_sucess{
+    border-style: solid;
+border-color:#7fa142;
+border-radius: 10px;
+width: 150px;
+height: 50px;
+
+color:#7fa142;
+background-color: transparent;
+position: relative;
+right: 10px;
+margin-left: 60px;
+}
+
+.button_sucess:hover {
+
+
+
+    background-color:#7fa142;
+    color: #213246
+   }

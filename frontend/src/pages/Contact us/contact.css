@@ -1,0 +1,70 @@
+.contact{
+
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    height: 100vh;
+    background-image: linear-gradient(to bottom right, 	#213246 72.2%,#7fa142 50%);
+}
+.contact_heading
+{
+    color:white;
+    text-align: center;
+}
+.contact_paragarph
+{
+    color:white;
+    text-align: center;
+   width:1200px;
+   position: relative;
+   left: 350px;
+}
+.parent {
+    width: 90%;
+    margin: 10px auto;
+    display: flex;
+  }
+  
+  .first {
+
+    flex: 1;
+    width: 30%;
+    color:white;
+    position: relative;
+    left: 400px;
+    top:30px;
+
+  }
+  
+
+  
+  .third {
+ 
+    flex: 1;
+    width: 60%;
+
+  }
+  .button_contact{
+
+    border-style: solid;
+    border-color:#7fa142;
+    border-radius: 10px;
+    width: 150px;
+    height: 50px;
+    
+ color:#7fa142;
+ background-color: transparent;
+ position: relative;
+ top: 20px;
+ margin-left: 60px;
+
+
+  
+}
+.button_contact:hover {
+
+
+
+ background-color:#7fa142;
+ color: #213246
+}
