@@ -36,7 +36,10 @@ function App() {
  const [modalcart,SetModalCart]=useState(false)
  const [modal1,SetModal1]=useState(false);
  const [orderNumber,SetOrderNumber]=useState(0)
-   const  value={modal1,SetModal1,customers,SetCustomers,log,SetLog,modal,SetModal,productModal,SetProductModal,name1,SetName,img1,SetImg,price1,SetPrice,id1,SetId,nav_cart,SetNavCart,cart_state,SetCartState,transactions,Settransactions,paymentMethod, setPaymentMethod,ButtonDisable,SetButtonDisable,modalcart,SetModalCart,orderNumber,SetOrderNumber}
+ const[ReviewModal,SetReviewModal]=useState(false)
+ const [toogle1,SetToogle1]=useState(0)
+
+   const  value={toogle1,SetToogle1,ReviewModal,SetReviewModal,modal1,SetModal1,customers,SetCustomers,log,SetLog,modal,SetModal,productModal,SetProductModal,name1,SetName,img1,SetImg,price1,SetPrice,id1,SetId,nav_cart,SetNavCart,cart_state,SetCartState,transactions,Settransactions,paymentMethod, setPaymentMethod,ButtonDisable,SetButtonDisable,modalcart,SetModalCart,orderNumber,SetOrderNumber}
 
   const router = createBrowserRouter([
     {

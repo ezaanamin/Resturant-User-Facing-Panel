@@ -13,7 +13,22 @@ import { Scrollbars } from "react-custom-scrollbars-2";
 import CustomersInformation from '../../component/CustomersInformation'
 import EditIcon from '@mui/icons-material/Edit';
 import AddressForm from '../../component/AddressForm'
+import { fetchStarters,fetchBreakfast,fetchLunch,fetchDinner,fetchDersert,fetchBeverage  } from '../../redux/slice/data'
+import Recommded from '../../component/Recommded'
+
 function Cart() {
+
+  const dispatch = useDispatch();
+  const currentDate = new Date();
+
+  const currentTime = currentDate.toLocaleTimeString();
+
+  console.log(currentTime)
+
+
+
+
+
  const nav=useNavigate()
 
   const{customers,log,SetModal,SetNavCart,SetModal1}=useContext(UserContext)
@@ -21,8 +36,15 @@ function Cart() {
   const state = useSelector((state) => state);
   const dis=useDispatch()
 
+
   useEffect(()=>{
-  console.log()
+dis(fetchBeverage())
+dis(fetchBreakfast())
+dis (fetchLunch())
+dis (fetchDinner())
+dis(fetchDersert())
+
+
   },[])
 
 useEffect(()=>{
@@ -93,14 +115,120 @@ useEffect(()=>{
 
 
 }
+<h3 style={{marginTop:100,color:"#7fa142",marginBottom:20,position:"relative",left:600,bottom:state.cart.cartItems.length==0?150:1050}}>Recommended</h3>
+{
+  currentTime<='6:00am' && state.cart.cartItems.length==0?
+
+
+  state.data.breakfast.slice(0, 3).map((s) => (
+    <div className='recommded'>
+    <Recommded  id={s._id} name={s.name}
+    price={s.price}
+    img={s.img}
+    
+    />
+    </div>
+  ))
+
+
+  :null
+}
+
+
+{
+  currentTime<='5:00pm' && state.cart.cartItems.length==0?
+
+
+  state.data.lunch.slice(0, 3).map((s) => (
+    <div className='recommded'>
+    <Recommded  id={s._id} name={s.name}
+    price={s.price}
+    img={s.img}
+    
+    />
+    </div>
+  ))
+
+
+  :null
+}
+
+
+
+{
+ currentTime<"9:00pm" &&   state.cart.cartItems.length==0?
+
+
+  state.data.dinner.slice(0, 3).map((s) => (
+    <div className='recommded'>
+    <Recommded   id={s._id} name={s.name}
+    price={s.price}
+    img={s.img}
+    
+    />
+    </div>
+  ))
+
+
+  :null
+}
+
+
+{
+  currentTime>='10:00pm' &&   state.cart.cartItems.length==0?
+
+
+  state.data.dersert.slice(0, 3).map((s) => (
+    <div className='recommded'>
+    <Recommded   id={s._id} name={s.name}
+    price={s.price}
+    img={s.img}
+    
+    />
+    </div>
+  ))
+
+
+  :null
+}
+
+
+
+
+
+{
+ state.cart.cartItems.length!=0?
+
+
+ state.data.beverage.slice(0, 3).map((s) => (
+  <div className='recommded1'>
+    <Recommded  id={s._id} name={s.name}
+    price={s.price}
+    img={s.img}
+    
+    />
+    </div>
+  ))
+
+
+  :null
+}
 </div>
 
 <div className='checkout_right'>
   
 <SubTotal/>
-<h3 style={{marginTop:100,color:"#7fa142",marginBottom:20}}>Customer's Information <EditIcon/></h3>
+<h3 style={{marginTop:50,color:"#7fa142",marginBottom:20}}>Customer's Information <EditIcon/></h3>
 <CustomersInformation/>
+
+
+
+
+
+
 </div>
+
+
 
 </div>
 

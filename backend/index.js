@@ -30,6 +30,7 @@ import ReviewsRoutes from "./routes/reviews.js"
 import PaymentRoutes from "./routes/payment.js"
 import {data1} from "./data.js"
 import {data2} from "./data2.js"
+import CustomersReviews from "./model/CustomerReviews.js"
 dotenv.config();
 const app=express()
 app.use(express.json())

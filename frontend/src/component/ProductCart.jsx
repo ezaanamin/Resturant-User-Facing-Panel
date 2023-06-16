@@ -15,15 +15,14 @@ function ProductCart({ id,title, img, price,order_id,order=false}) {
 <div className="items-info">
 
         <div className="product-img">
-        {!order?
-          <img src={img} alt="iamge" />
-          :
+  
+  
           <img src={`http://localhost:4000/upload/${img}`} alt="iamge" />
-        }
+        
         </div>
 
         <div className="title">
-          <h3>{title}</h3>
+          <h3>{img}</h3>
 
         </div>
 

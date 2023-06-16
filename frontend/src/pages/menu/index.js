@@ -27,6 +27,7 @@ import { UserContext } from '../../context/context';
 import { useContext } from "react";
 import { RingLoader } from 'react-spinners';
 import ProductModal from '../../component/ProductModal';
+import ReviewModals from '../../component/ReviewModal';
 const Product=({
     id,
     name,
@@ -113,6 +114,8 @@ const checkUser=([id,name,img,price])=>{
     )
     
     }
+
+ 
 function Menu() {
 
 
@@ -123,8 +126,8 @@ function Menu() {
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
   const { cart } = useSelector((state) => state);
-  const [ring,SetRing]=useState(false)
-  const{customers,SetCustomers,log,SetLog,modal,SetModal,productModal,SetProductModal,name1,SetName,img1,SetImg,price1,SetPrice,id1,SetId,nav_cart,SetNavCart}=useContext(UserContext)
+  const [ring,SetRing]=useState(false);
+  const{toogle1,SetToogle1,ReviewModal,SetReviewModal,customers,SetCustomers,log,SetLog,modal,SetModal,productModal,SetProductModal,name1,SetName,img1,SetImg,price1,SetPrice,id1,SetId,nav_cart,SetNavCart}=useContext(UserContext)
   useEffect(()=>{
     dispatch( fetchStarters())
     dispatch(fetchBreakfast())
@@ -137,6 +140,23 @@ function Menu() {
     
       },[!state.data])
     
+      const handle=()=>{
+
+        if(log==true)
+        {
+
+        
+        SetToogle1(7);
+        SetReviewModal(true)
+        }
+        if(log==false)
+        {
+          SetNavCart(false)
+          SetModal(true)
+        }
+
+
+      }
 
   
 
@@ -146,6 +166,12 @@ function Menu() {
   return (
     
     <div className='menu'>
+
+      {
+        ReviewModal?
+        <ReviewModals heading={"Leave a Review"}/>
+        :null
+      }
     <ProductModal id={id1} name={name1} img={img1} price={price1} />
 {!nav_cart?
 <Modal1 heading={"Please Login in"} desc={"PLease login in order to add item to cart"} button_display={true}/>:
@@ -156,6 +182,25 @@ function Menu() {
 <h1 className='menu_text'>Our Menu</h1>
 <Slideshow/>
 <TestiMonials/>  
+
+<Box  
+       mt="20px"
+       display={"flex"}
+       justifyContent="center"
+       marginBottom={10}
+       
+
+    
+ 
+    >
+
+<button className={toogle1==7?"selected":"menu_button"} onClick={()=>handle()}>Leave a Review </button>
+
+    </Box>
+
+
+
+
 <Box  
        mt="20px"
        display={"flex"}
