@@ -117,7 +117,7 @@ useEffect(()=>{
 }
 <h3 style={{marginTop:100,color:"#7fa142",marginBottom:20,position:"relative",left:600,bottom:state.cart.cartItems.length==0?150:1050}}>Recommended</h3>
 {
-  currentTime<='6:00am' && state.cart.cartItems.length==0?
+  currentTime>='6:00am' &&  currentTime<='12:00pm' &&   state.cart.cartItems.length==0?
 
 
   state.data.breakfast.slice(0, 3).map((s) => (
@@ -136,7 +136,7 @@ useEffect(()=>{
 
 
 {
-  currentTime<='5:00pm' && state.cart.cartItems.length==0?
+ currentTime>='12:00pm' &&   currentTime<='5:00pm' && state.cart.cartItems.length==0?
 
 
   state.data.lunch.slice(0, 3).map((s) => (
@@ -156,7 +156,7 @@ useEffect(()=>{
 
 
 {
- currentTime<"9:00pm" &&   state.cart.cartItems.length==0?
+  currentTime>='5:00pm' && currentTime<="9:00pm" &&   state.cart.cartItems.length==0?
 
 
   state.data.dinner.slice(0, 3).map((s) => (

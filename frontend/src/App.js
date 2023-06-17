@@ -18,6 +18,7 @@ import Menu from "./pages/menu/index"
 import Cart from "./pages/cart/index"
 import Orders from "./pages/Order";
 import SucessPage from './component/SucessPage';
+import Modal1 from "./component/modal"
 
 function App() {
   const [customers,SetCustomers]=useState([])
@@ -47,6 +48,10 @@ function App() {
        element: (
             <div>   
 <Homepage/>   
+{!nav_cart?
+<Modal1 heading={"Please Login in"} desc={"PLease login in order to add item to cart"} button_display={true}/>:
+<Modal1 heading={"Please add items to cart"} desc={"PLease add items to cart in order to proceed forward"} button_display={false}/>
+}
         
       
             </div>
@@ -76,6 +81,10 @@ function App() {
           <div>  
            <Navbar/>
          <About/>
+         {!nav_cart?
+<Modal1 heading={"Please Login in"} desc={"PLease login in order to add item to cart"} button_display={true}/>:
+<Modal1 heading={"Please add items to cart"} desc={"PLease add items to cart in order to proceed forward"} button_display={false}/>
+}
       
           </div>
         ),
@@ -90,6 +99,10 @@ function App() {
           <div>  
            <Navbar/>
          <Contact/>
+         {!nav_cart?
+<Modal1 heading={"Please Login in"} desc={"PLease login in order to add item to cart"} button_display={true}/>:
+<Modal1 heading={"Please add items to cart"} desc={"PLease add items to cart in order to proceed forward"} button_display={false}/>
+}
       
           </div>
         ),
