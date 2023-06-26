@@ -23,14 +23,14 @@ export const SendMail= async (req, res) => {
     port: 465,
     secure: true,
     auth: {
-     user: 'amin.ezaan@gmail.com',
-     pass:'wymiirhzkatgvzka',
+     user: process.env.EMAIL_ADDRESS,
+     pass:process.env.EMAIL_ADDRESS_PASSWORD,
     },
    });
   // send mail with defined transport object
 
   var mailOptions = {
-    from: 'amin.ezaan@gmail.com',
+    from: process.env.EMAIL_ADDRESS,
     to: req.body.email,
     subject:req.body.subject,
     text:req.body.message
