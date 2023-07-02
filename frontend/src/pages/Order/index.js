@@ -7,19 +7,34 @@ import { useContext } from 'react';
 import axios from "axios";
 import ProductCart from '../../component/ProductCart';
 function Orders() {
-  const{customers}=useContext(UserContext)
+ 
 
-  const [order,SetOrder]=useState([])
+  const [orders,SetOrder]=useState([])
 
-  useEffect(()=>{
- console.log(customers._id)
- const fetchData = async () => {
-  const data = await  axios.post('http://localhost:5000/order/get/customers',{customer_id:customers._id})
-  SetOrder(data.data)
-console.log(order)
-}
-fetchData()
-  },[])
+  useEffect(() => {
+    const token = localStorage.getItem('Token');
+    if (token) {
+      const fetchData = async () => {
+        try {
+          const response = await axios.post(
+            'http://localhost:5000/order/get/customers',
+            null,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          SetOrder(response.data);
+          console.log(response.data);
+        } catch (error) {
+          console.error(error); // handle any error that occurred
+        }
+      };
+      fetchData();
+    }
+  }, []);
+  
   return (
     
     <div className='order'>
@@ -32,21 +47,25 @@ fetchData()
 </div>
 <div className='cart_product'>
 <Scrollbars>
-{order.length!=0?
-order.map((s) => (
-
-  s.orders.map(option => 
-<ProductCart order={true} title={option.name}  price={option.price} img={option.img} order_id={s.order_id}  />
-
-  )
-
-))
-:
-<h1 style={{textAlign:"center",position:"relative",top:300}}>No Order History</h1>
-}
-
-
-</Scrollbars>
+          {orders.length !== 0 ? (
+            orders.map((order) => (
+              <React.Fragment key={order.order_id}>
+                {order.product.map((product) => (
+                  <ProductCart
+                    key={product._id}
+                    order={true}
+                    title={product.name}
+                    price={product.price}
+                    img={product.img}
+                    order_id={order.order_id}
+                  />
+                ))}
+              </React.Fragment>
+            ))
+          ) : (
+            <h1 style={{ textAlign: 'center', position: 'relative', top: 300 }}>No Order History</h1>
+          )}
+        </Scrollbars>
 </div>
 
     </div>

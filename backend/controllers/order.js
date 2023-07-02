@@ -10,6 +10,7 @@ import Transaction from "../model/transaction.js"
 import OverallStats from "../model/OverallStats.js"
 import { Sales } from "../model/sales.js"
 import {ObjectId} from "mongoose"
+import jwt from "jsonwebtoken"
 
     
 
@@ -298,46 +299,49 @@ export const DeleteOrder=async (req,res)=>{
 
   })
 }
-export const GetCustomersOrder=async (req,res)=>{
+export const GetCustomersOrder = async (req, res) => {
 
+    const token = req.headers['authorization'];
 
- 
-  console.log(req.body)
-              
-     
-    Orders.aggregate([
- 
-   {
-    $match: { customer_id: new mongoose.Types.ObjectId(req.body.customer_id)} 
-   },
-   {
-    $unwind: {
-      path: '$orders'
-  }
-},
-{
-  $lookup: {
-    from: 'products',
-    localField: 'orders',
-    foreignField: '_id',
-    as: 'orders'
-}
-}
- 
-    ]).then(function(doc) {
-      if(doc)
+    const headers = token.replace('Bearer ', ''); // Remove the "Bearer " prefix from the token
+
+    const cleanedToken = headers.replace(/^"|"$/g, '');
+
+    console.log(cleanedToken);
+console.log(process.env.SERECT)
+    const pay = jwt.verify(cleanedToken, process.env.SERECT);
+    console.log(pay.user_id);
+
+    const orders = await Orders.aggregate([
       {
-          res.json(doc)
-      }
-      else
+        $match: { customer_id: new mongoose.Types.ObjectId(pay.user_id) },
+      },
       {
-          res.json("Error")
-      }
+        $unwind: {
+          path: '$orders',
+        },
+      },
+      {
+        $lookup: {
+          from: 'products',
+          localField: 'orders',
+          foreignField: '_id',
+          as: 'product',
+        },
+      },
+    ]);
+
+    if (orders) {
+      console.log(orders);
+      res.json(orders);
+    } else {
+      console.log('Error');
+      res.status(404).json('Error');
+    }
   
-   })
+};
 
 
-  }
 
       
 export const NewOrder=async (req,res)=>{

@@ -31,7 +31,7 @@ function Cart() {
 
  const nav=useNavigate()
 
-  const{customers,log,SetModal,SetNavCart,SetModal1}=useContext(UserContext)
+  const{log,SetModal,SetNavCart,SetModal1}=useContext(UserContext)
   
   const state = useSelector((state) => state);
   const dis=useDispatch()
@@ -62,14 +62,14 @@ useEffect(()=>{
     nav("/menu")
     
   }
-  if(!customers.address || customers.phone)
-  {
-    SetModal1(true)
-  }
- if(customers.address || customers.phone)
-  {
-    SetModal1(false)
-  }
+//   if(!customers.address || customers.phone)
+//   {
+//     SetModal1(true)
+//   }
+//  if(customers.address || customers.phone)
+//   {
+//     SetModal1(false)
+//   }
 
 
     

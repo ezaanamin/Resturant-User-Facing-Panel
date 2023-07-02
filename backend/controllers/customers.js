@@ -248,7 +248,7 @@ Customer.findOne({email:req.body.information.email}).then(function(doc) {
             expiresIn: "2h",
           }
         );
-        res.json({"token":token,customers:doc})
+        res.json({"token":token})
        }
      })
     }
@@ -259,6 +259,34 @@ Customer.findOne({email:req.body.information.email}).then(function(doc) {
 
 
 }
+
+
+export const VerifyUser = async (req, res) => {
+  try {
+    const token = req.headers['authorization'];
+
+    const headers = token.replace('Bearer ', ''); // Remove the "Bearer " prefix from the token
+
+    const cleanedToken = headers.replace(/^"|"$/g, '');
+
+    console.log(cleanedToken);
+
+    const pay = jwt.verify(cleanedToken, process.env.SERECT);
+
+    console.log(pay.user_id);
+
+    const doc = await Customer.findById(pay.user_id);
+
+    if (doc) {
+    res.send(doc)
+    } 
+  } catch (e) {
+    res.send('Not authorized');
+  }
+};
+
+
+
 
 
 export const NewCustomer = async (req, res) => {

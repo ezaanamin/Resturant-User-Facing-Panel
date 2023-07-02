@@ -24,6 +24,7 @@
     "react-custom-scrollbars-2": "^4.5.0",
     "react-dom": "^18.2.0",
     "react-google-button": "^0.7.2",
+    "react-jwt": "^1.2.0",
     "react-owl-carousel": "^2.3.3",
     "react-redux": "^8.0.7",
     "react-router-dom": "^6.11.2",

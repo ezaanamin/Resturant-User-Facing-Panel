@@ -5,7 +5,7 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { UserContext } from './context/context';
 import store from "../src/redux/store.js"
 import Login from "./pages/login/index"
@@ -19,9 +19,10 @@ import Cart from "./pages/cart/index"
 import Orders from "./pages/Order";
 import SucessPage from './component/SucessPage';
 import Modal1 from "./component/modal"
+import { getToken, decodeToken, isTokenExpired } from 'react-jwt';
+
 
 function App() {
-  const [customers,SetCustomers]=useState([])
   const[log,SetLog]=useState(false)
   const [modal,SetModal]=useState(false)
   const [name1,SetName]=useState("")
@@ -40,7 +41,29 @@ function App() {
  const[ReviewModal,SetReviewModal]=useState(false)
  const [toogle1,SetToogle1]=useState(0)
 
-   const  value={toogle1,SetToogle1,ReviewModal,SetReviewModal,modal1,SetModal1,customers,SetCustomers,log,SetLog,modal,SetModal,productModal,SetProductModal,name1,SetName,img1,SetImg,price1,SetPrice,id1,SetId,nav_cart,SetNavCart,cart_state,SetCartState,transactions,Settransactions,paymentMethod, setPaymentMethod,ButtonDisable,SetButtonDisable,modalcart,SetModalCart,orderNumber,SetOrderNumber}
+   const  value={toogle1,SetToogle1,ReviewModal,SetReviewModal,modal1,SetModal1,log,SetLog,modal,SetModal,productModal,SetProductModal,name1,SetName,img1,SetImg,price1,SetPrice,id1,SetId,nav_cart,SetNavCart,cart_state,SetCartState,transactions,Settransactions,paymentMethod, setPaymentMethod,ButtonDisable,SetButtonDisable,modalcart,SetModalCart,orderNumber,SetOrderNumber}
+
+
+   useEffect(() => {
+    const token = localStorage.getItem('Token');
+    if (token) {
+      const expirationTime = decodeToken(token).exp * 1000     
+       if (Date.now() > expirationTime) {
+        localStorage.removeItem('Token');
+      } else {
+        const timeoutId = setTimeout(() => {
+          localStorage.removeItem('Token');
+       SetLog(true)
+
+        }, expirationTime - Date.now());
+
+        return () => clearTimeout(timeoutId);
+      }
+    }
+
+
+
+  }, []);
 
   const router = createBrowserRouter([
     {

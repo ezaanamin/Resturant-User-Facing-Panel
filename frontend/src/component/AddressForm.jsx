@@ -67,7 +67,7 @@ function getModalStyle() {
 function AddressForm() {
   const handle = async (address,phone,customers_id) => {
 
-    const response1= await axios.post('http://localhost:5000/customers//update',{address:address,phone:phone,customers_id:customers_id})
+    const response1= await axios.post('http://localhost:5000/customers/update',{address:address,phone:phone,customers_id:customers_id})
 
  if(response1 && response1.data)
  {

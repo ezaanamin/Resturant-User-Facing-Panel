@@ -97,15 +97,8 @@ function Login() {
      
      if(response.data!="Wrong password")
      {
+       localStorage.setItem('Token', JSON.stringify(response.data.token));
        SetLog(true)
-       SetCustomers(response.data.customers)
-   
-       const decoded=jwt(response.data.token)
-    
-       cookies.set("jwt_authorization",response.data.token,{
-   
-         expires:new Date(decoded.exp*1000),
-       });
        SetModal(false)
        navigate('/menu')
    
