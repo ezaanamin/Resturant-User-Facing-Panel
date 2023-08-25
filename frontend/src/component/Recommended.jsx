@@ -2,7 +2,7 @@ import React from 'react';
 import "./review.css"
 import  { addToCart }  from "../redux/slice/cart"
 import { useDispatch, useSelector } from "react-redux";
-const Recommded = ({id, img,name,price,}) => {
+const Recommended = ({id, img,name,price,}) => {
 
 
 
@@ -27,11 +27,11 @@ const Recommded = ({id, img,name,price,}) => {
 <h2 style={{marginRight:25}}>{name}</h2>
 
 
-<button onClick={()=>Add(id,name,img,price)}  type="submit"  className='button_recommded'>Add to Cart</button>
+<button onClick={()=>Add(id,name,img,price)}  type="submit"  className='button_Recommended'>Add to Cart</button>
 </div>
 
   
     );
 }
 
-export default Recommded;
+export default Recommended;

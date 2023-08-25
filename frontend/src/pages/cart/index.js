@@ -14,21 +14,12 @@ import CustomersInformation from '../../component/CustomersInformation'
 import EditIcon from '@mui/icons-material/Edit';
 import AddressForm from '../../component/AddressForm'
 import { fetchStarters,fetchBreakfast,fetchLunch,fetchDinner,fetchDersert,fetchBeverage  } from '../../redux/slice/data'
-import Recommded from '../../component/Recommded'
+import Recommended from '../../component/Recommended'
 
 function Cart() {
 
-  const dispatch = useDispatch();
-  const currentDate = new Date();
-
-  const currentTime = currentDate.toLocaleTimeString();
-
-  console.log(currentTime)
-
-
-
-
-
+  const now = new Date();
+const currentHour = now.getHours();
  const nav=useNavigate()
 
   const{log,SetModal,SetNavCart,SetModal1}=useContext(UserContext)
@@ -43,6 +34,9 @@ dis(fetchBreakfast())
 dis (fetchLunch())
 dis (fetchDinner())
 dis(fetchDersert())
+
+  console.log('ezaan', state.data);
+
 
 
   },[])
@@ -116,93 +110,46 @@ useEffect(()=>{
 
 }
 <h3 style={{marginTop:100,color:"#7fa142",marginBottom:20,position:"relative",left:600,bottom:state.cart.cartItems.length==0?150:1050}}>Recommended</h3>
-{
-  currentTime>='6:00am' &&  currentTime<='12:00pm' &&   state.cart.cartItems.length==0?
 
-
-  state.data.breakfast.slice(0, 3).map((s) => (
-    <div className='recommded'>
-    <Recommded  id={s._id} name={s.name}
-    price={s.price}
-    img={s.img}
-    
-    />
+{((currentHour >= 6 && currentHour < 12)) && state.cart.cartItems.length === 0 ? (
+  state.data.breakfast && state.data.breakfast.slice(0, 3).map((b) => (
+    <div className='recommended' key={b._id}>
+      <Recommended name={b.name} price={b.price} img={b.img} />
     </div>
   ))
+) : null}
 
-
-  :null
-}
-
-
-{
- currentTime>='12:00pm' &&   currentTime<='5:00pm' && state.cart.cartItems.length==0?
-
-
-  state.data.lunch.slice(0, 3).map((s) => (
-    <div className='recommded'>
-    <Recommded  id={s._id} name={s.name}
-    price={s.price}
-    img={s.img}
-    
-    />
+{(currentHour >= 12 && currentHour < 17) && state.cart.cartItems.length === 0 ? (
+  state.data.lunch && state.data.lunch.slice(0, 3).map((l) => (
+    <div className='recommended' key={l._id}>
+      <Recommended name={l.name} price={l.price} img={l.img} />
     </div>
   ))
+) : null}
 
-
-  :null
-}
-
-
-
-{
-  currentTime>='5:00pm' && currentTime<="9:00pm" &&   state.cart.cartItems.length==0?
-
-
-  state.data.dinner.slice(0, 3).map((s) => (
-    <div className='recommded'>
-    <Recommded   id={s._id} name={s.name}
-    price={s.price}
-    img={s.img}
-    
-    />
+{(currentHour >= 17 && currentHour < 21) && state.cart.cartItems.length === 0 ? (
+  state.data.dinner && state.data.dinner.slice(0, 3).map((d) => (
+    <div className='recommended' key={d._id}>
+      <Recommended name={d.name} price={d.price} img={d.img} />
     </div>
   ))
+) : null}
 
-
-  :null
-}
-
-
-{
-  currentTime>='10:00pm' &&   state.cart.cartItems.length==0?
-
-
-  state.data.dersert.slice(0, 3).map((s) => (
-    <div className='recommded'>
-    <Recommded   id={s._id} name={s.name}
-    price={s.price}
-    img={s.img}
-    
-    />
+{(currentHour > 21 || currentHour < 6) && state.cart.cartItems.length === 0 ? (
+  state.data.dersert && state.data.dersert.slice(0, 3).map((s) => (
+    <div className='recommended' key={s._id}>
+      <Recommended name={s.name} price={s.price} img={s.img} />
     </div>
   ))
-
-
-  :null
-}
-
-
-
-
+) : null}
 
 {
  state.cart.cartItems.length!=0?
 
 
  state.data.beverage.slice(0, 3).map((s) => (
-  <div className='recommded1'>
-    <Recommded  id={s._id} name={s.name}
+  <div className='recommended1'>
+    <Recommended  id={s._id} name={s.name}
     price={s.price}
     img={s.img}
     
@@ -213,6 +160,7 @@ useEffect(()=>{
 
   :null
 }
+
 </div>
 
 <div className='checkout_right'>
