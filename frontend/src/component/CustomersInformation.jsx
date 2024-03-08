@@ -5,42 +5,37 @@ import { UserContext } from '../context/context';
 import { useContext } from 'react'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
+import Cookies from 'universal-cookie';
+import { fetchCustomers } from '../redux/Post';
 function CustomersInformation() {
 
   const nav=useNavigate("")
   const [customer,SetCustomers] =useState([])
-  const{log,SetLog,modal,SetModal,nav_cart,SetNavCart,cart_state,SetCartState}=useContext(UserContext)
+  const{SetLog}=useContext(UserContext)
 
-
+  const cookies = new Cookies();
+  const dispatch=useDispatch();
   useEffect(() => {
-    const token = localStorage.getItem('Token');
-    if (token) {
-      const getCustomers = async () => {
-        try {
-          console.log(token,'')
-          const response = await axios.post('http://localhost:5000/customers/get', null, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
-
-          SetCustomers(response.data)
-    
-        } catch (error) {
-          console.error(error); // handle any error that occurred
-        }
-      };
-      getCustomers();
-   
-    
+    const token = cookies.get('token');
+    if (!token) {
+      nav("/menu");
+      SetLog(true);
+      return; // Exit early if token is not available
     }
-    else
-    {
- nav("/menu");
- SetLog(true);
-
-    }
+  
+    const getCustomers = async () => {
+      try {
+        console.log(token, '');
+        const response = await  dispatch(fetchCustomers(token));
+  
+        console.log(response.payload,'tony')
+        SetCustomers(response.payload);
+      } catch (error) {
+        console.error(error); // handle any error that occurred
+      }
+    };
+  
+    getCustomers();
   }, []);
 
 

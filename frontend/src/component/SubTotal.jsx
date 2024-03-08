@@ -11,21 +11,22 @@ import axios from "axios";
 import Modal2 from "../component/ModalCart"
 import { useNavigate } from 'react-router-dom';
 import RemoveAllCart from "../redux/slice/cart"
-
+import jwt from "jwt-decode"
+import Cookies from 'universal-cookie';
 function Subtotal() {
   const state = useSelector((state) => state);
+  const cookies = new Cookies();
+  const storedCustomerId = cookies.get('token');
+  const decoded=jwt(storedCustomerId)
   const dispatch=useDispatch()
-  const{customers,paymentMethod,setPaymentMethod,SetModalCart,SetOrderNumber}=useContext(UserContext)
+  const{paymentMethod,setPaymentMethod,SetModalCart,SetOrderNumber}=useContext(UserContext)
   const nav=useNavigate();
-
   const radioChangeHandler = (e) => {
     setPaymentMethod(e.target.value);
   };
   useEffect(()=>{
-
-
   },[state.cart.cartItems.length])
-  const handleClick = async (menu,customer_id,totalAmount,paymentMethod) => {
+  const handleClick = async (menu,totalAmount,paymentMethod) => {
 
     if(state.cart.cartItems.length==0)
     {
@@ -35,10 +36,8 @@ function Subtotal() {
     else
     {
      SetModalCart(false)
-   
-    
- 
-    const response= await axios.post('http://localhost:5000/order/new/order',{menu:menu,customer_id:customer_id,totalAmount:totalAmount,paymentMethod:paymentMethod})
+
+    const response= await axios.post('http://localhost:5000/order/new/order',{menu:menu,customer_id:decoded.user_id,totalAmount:totalAmount,paymentMethod:paymentMethod})
     .catch((error) => console.log('Error: ', error));
 
    
@@ -91,7 +90,7 @@ function Subtotal() {
         prefix={"$"}
       />
 {paymentMethod !== "QuickPay"?
-      <button onClick={()=>handleClick(state.cart.cartItems,customers._id,state.cart.totalAmount,paymentMethod)}>Order Now</button>
+      <button onClick={()=>handleClick(state.cart.cartItems,decoded.user_id,state.cart.totalAmount,paymentMethod)}>Order Now</button>
       :null
         
     }

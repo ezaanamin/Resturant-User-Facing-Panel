@@ -12,11 +12,12 @@ import {Link} from "react-router-dom"
 import { UserContext } from '../../context/context';
 import GoogleButton from 'react-google-button'
 import { useGoogleLogin } from '@react-oauth/google';
+import AddressForm from '../../component/AddressForm';
 
 function Login() {
 
-
- const{SetCustomers,SetLog,SetModal}=useContext(UserContext)
+  let id
+ const{SetCustomers,SetLog,SetModal,modal1,SetModal1,customers}=useContext(UserContext)
  const googleLogin = useGoogleLogin  ( {
   onSuccess: (codeResponse) => {
     console.log(codeResponse)
@@ -39,9 +40,18 @@ function Login() {
     if(response1 && response1.data)
     {
       SetLog(true)
-      console.log(response1.data)
+      console.log(response1.data,'amin ezaan ')
       const decoded=jwt(response1.data.token)
+ console.log(decoded.user_id,'stark')
       SetCustomers(response1.data.customers)
+      cookies.set("token", response1.data.token, { path: "/" });
+      if(response1.data.customers.address==null)
+      {   
+        SetModal1(true)
+        
+      }
+     
+  
    
       cookies.set("jwt_authorization",response1.data.token,{
   
@@ -51,8 +61,14 @@ function Login() {
 
 
   }
-  SetModal(false)
-  navigate('/menu')
+
+  if(response1.data.customers.address!=null)
+  {
+    SetModal(false)
+    navigate('/menu')
+    
+  }
+
   
   }
 
@@ -127,7 +143,10 @@ function Login() {
   });
   return (
     <div  className='login' >
-
+{
+  modal1?
+  <AddressForm/>:null
+}
 <form onSubmit={formik.handleSubmit}>
       <h1 className='heading_login'>Login</h1>
  

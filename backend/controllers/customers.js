@@ -264,34 +264,36 @@ Customer.findOne({email:req.body.information.email}).then(function(doc) {
 export const VerifyUser = async (req, res) => {
   try {
     const token = req.headers['authorization'];
+    if (!token) {
+      return res.status(401).send('Not authorized');
+    }
 
-    const headers = token.replace('Bearer ', ''); // Remove the "Bearer " prefix from the token
+    const cleanedToken = token.replace(/^Bearer\s+/i, '');
 
-    const cleanedToken = headers.replace(/^"|"$/g, '');
-
-    console.log(cleanedToken);
-
-    const pay = jwt.verify(cleanedToken, process.env.SERECT);
+    const pay = jwt.verify(cleanedToken, process.env.TOKEN_KEY);
 
     console.log(pay.user_id);
 
     const doc = await Customer.findById(pay.user_id);
 
     if (doc) {
-    res.send(doc)
-    } 
+      console.log(doc);
+      return res.send(doc);
+    } else {
+      return res.status(404).send('User not found');
+    }
   } catch (e) {
-    res.send('Not authorized');
+    console.error(e);
+    return res.status(401).send('Not authorized');
   }
 };
 
 
 
 
-
 export const NewCustomer = async (req, res) => {
 
-  console.log(req.body)
+  // console.log(req.body)
 
   Customer.findOne({email:req.body.email}).then(function(doc) {
 

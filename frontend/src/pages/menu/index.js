@@ -42,25 +42,17 @@ const Product=({
 const checkUser=([id,name,img,price])=>{
  console.log(id,name,img,price)
 
-  if(log==false)
-  {
-    SetNavCart(false)
-    SetModal(true)
-  }
-  if(log==true)
-  {
- 
-   
-  
-  //dispatch(addToCart([id,name,img,price]))
-  SetProductModal(true)
-  SetName(name)
-  SetPrice(price)
-  SetImg(img)
-  SetId(id)
+ if (log === false) {
+  SetNavCart(false);
+  SetModal(true);
+} else {
 
-
-  }
+  SetProductModal(true);
+  SetName(name);
+  SetPrice(price);
+  SetImg(img);
+  SetId(id);
+}
   
 
 
@@ -140,23 +132,17 @@ function Menu() {
     
       },[!state.data])
     
-      const handle=()=>{
+  const handle = (log) => {
+  if (log === true) {
 
-        if(log==true)
-        {
+    SetToogle1(7);
+    SetReviewModal(true);
+  } else {
 
-        
-        SetToogle1(7);
-        SetReviewModal(true)
-        }
-        if(log==false)
-        {
-          SetNavCart(false)
-          SetModal(true)
-        }
-
-
-      }
+    SetNavCart(false);
+    SetModal(true);
+  }
+};
 
   
 

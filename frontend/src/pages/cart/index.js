@@ -45,29 +45,13 @@ useEffect(()=>{
  dis(GetTotal())
 },[])
 
-    useEffect(()=>{
-
-
-    
-  if(log==false)
-  {
-    SetNavCart(false)
-    SetModal(true)
-    nav("/menu")
-    
+useEffect(() => {
+  if (log !== true) {
+    SetNavCart(false);
+    SetModal(true);
+    nav("/menu");
   }
-//   if(!customers.address || customers.phone)
-//   {
-//     SetModal1(true)
-//   }
-//  if(customers.address || customers.phone)
-//   {
-//     SetModal1(false)
-//   }
-
-
-    
-    },[])
+}, [log, SetNavCart, SetModal, nav]);
 
 
 

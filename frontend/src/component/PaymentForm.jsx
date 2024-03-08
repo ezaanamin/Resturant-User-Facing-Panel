@@ -7,9 +7,11 @@ import { UserContext } from '../context/context';
 import axios from "axios"
 import { useNavigate } from 'react-router-dom';
 import RemoveAllCart from "../redux/slice/cart"
-
+import { makePaymentAndCreateOrder } from '../redux/Post';
 
 import "./subtotal.css"
+import Cookies from 'universal-cookie';
+import jwt from "jwt-decode"
 
 function PaymentForm() {
  
@@ -21,7 +23,10 @@ function PaymentForm() {
   const dispatch = useDispatch();
 
 
-
+  const cookies = new Cookies();
+  const storedCustomerId = cookies.get('token');
+  const decoded = jwt(storedCustomerId);
+  const user_id = decoded.user_id;
     const CARD_OPTIONS = {
       iconStyle: "solid",
       style: {
@@ -45,55 +50,43 @@ function PaymentForm() {
 
 
     const handleSubmit = async (e) => {
-      if(state.cart.cartItems.length==0)
-      {
-        SetModalCart(true)
-      
-      }
-      else
-      {
-        SetModalCart(false)
-      
-
-      e.preventDefault()
-      const {error, paymentMethod} = await stripe.createPaymentMethod({
+      try {
+        if (state.cart.cartItems.length === 0) {
+          SetModalCart(true);
+          return;
+        } else {
+          SetModalCart(false);
+        }
+    
+        e.preventDefault();
+    
+        const { error, paymentMethod } = await stripe.createPaymentMethod({
           type: "card",
           card: elements.getElement(CardElement)
-      })
-   
-  if(!error) {
-      try {
-
-          const {id} = paymentMethod
-          const response = await axios.post("http://localhost:5000/payment", {
-              a:state.cart.totalAmount,
-              id
-          })
-      
-          if(response.data.message=="Payment successful") {
-
-      const response1= await axios.post('http://localhost:5000/order/new/order',{menu:state.cart.cartItems,customer_id:customers._id,totalAmount:state.cart.totalAmount,paymentMethod:"QuickPay"})
-       console.log(response1.data)
-
-       if(response1.data)
-       {
+        });
     
-        SetOrderNumber(response.data.Order_Number)
-        dispatch(RemoveAllCart)
-
-        nav("/sucess")
-       }
-          
+        if (!error) {
+          const response = await dispatch(makePaymentAndCreateOrder({
+            cartItems: state.cart.cartItems,
+            totalAmount: state.cart.totalAmount,
+            customersId: user_id,
+            stripe,
+            elements 
+          }));
+    
+          if (response.payload) {
+            SetOrderNumber(response.Order_Number); // Assuming response structure has Order_Number
+            dispatch(RemoveAllCart()); // Corrected dispatch call
+            nav("/success");
           }
-
+        } else {
+          console.log(error.message);
+        }
       } catch (error) {
-          console.log("Error", error)
+        console.log("Error", error);
       }
-  } else {
-      console.log(error.message)
-  }
-}
-}
+    };
+    
 
 
     

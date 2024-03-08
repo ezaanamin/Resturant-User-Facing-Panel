@@ -39,27 +39,29 @@ function App() {
  const [modal1,SetModal1]=useState(false);
  const [orderNumber,SetOrderNumber]=useState(0)
  const[ReviewModal,SetReviewModal]=useState(false)
- const [toogle1,SetToogle1]=useState(0)
+ const [toogle1,SetToogle1]=useState(0);
+ const [customer,SetCustomers] =useState([])
 
-   const  value={toogle1,SetToogle1,ReviewModal,SetReviewModal,modal1,SetModal1,log,SetLog,modal,SetModal,productModal,SetProductModal,name1,SetName,img1,SetImg,price1,SetPrice,id1,SetId,nav_cart,SetNavCart,cart_state,SetCartState,transactions,Settransactions,paymentMethod, setPaymentMethod,ButtonDisable,SetButtonDisable,modalcart,SetModalCart,orderNumber,SetOrderNumber}
+
+   const  value={customer,SetCustomers,toogle1,SetToogle1,ReviewModal,SetReviewModal,modal1,SetModal1,log,SetLog,modal,SetModal,productModal,SetProductModal,name1,SetName,img1,SetImg,price1,SetPrice,id1,SetId,nav_cart,SetNavCart,cart_state,SetCartState,transactions,Settransactions,paymentMethod, setPaymentMethod,ButtonDisable,SetButtonDisable,modalcart,SetModalCart,orderNumber,SetOrderNumber}
 
 
    useEffect(() => {
-    const token = localStorage.getItem('Token');
-    if (token) {
-      const expirationTime = decodeToken(token).exp * 1000     
-       if (Date.now() > expirationTime) {
-        localStorage.removeItem('Token');
-      } else {
-        const timeoutId = setTimeout(() => {
-          localStorage.removeItem('Token');
-       SetLog(true)
+    // const token = localStorage.getItem('Token');
+    // if (token) {
+    //   const expirationTime = decodeToken(token).exp * 1000     
+    //    if (Date.now() > expirationTime) {
+    //     localStorage.removeItem('Token');
+    //   } else {
+    //     const timeoutId = setTimeout(() => {
+    //       localStorage.removeItem('Token');
+    //    SetLog(true)
 
-        }, expirationTime - Date.now());
+    //     }, expirationTime - Date.now());
 
-        return () => clearTimeout(timeoutId);
-      }
-    }
+    //     return () => clearTimeout(timeoutId);
+    //   }
+    // }
 
 
 

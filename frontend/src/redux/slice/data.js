@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-
+import axios from 'axios';
 // Action
-
+// mongodb+srv://ezaan_amin:itsmeagain2002@resturant.epics8q.mongodb.net/?retryWrites=true&w=majority
 export const fetchStarters = createAsyncThunk("fetchStarters", async () => {
   const response = await fetch("http://localhost:5000/order/get/starters");
   return response.json();
@@ -159,7 +159,6 @@ const DataSlice = createSlice({
         console.log("Error", action.payload);
         state.isError = true;
       }); 
-
 
 
 
